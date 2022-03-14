@@ -67,7 +67,7 @@ class KGOptimizer(object):
         return negative_batch
 
     def neg_sampling_loss(self, input_batch):
-        """Compute KG embedding loss with negative sampling.
+        """Compute KG embedding loss with negative sampling. 负采样损失
 
         Args:
             input_batch: torch.LongTensor of shape (batch_size x 3) with ground truth training triples.
@@ -108,7 +108,7 @@ class KGOptimizer(object):
         return loss, factors
 
     def calculate_loss(self, input_batch):
-        """Compute KG embedding loss and regularization loss.
+        """Compute KG embedding loss and regularization loss.计算embedding嵌入损失
 
         Args:
             input_batch: torch.LongTensor of shape (batch_size x 3) with ground truth training triples
@@ -152,7 +152,7 @@ class KGOptimizer(object):
         return loss
 
     def epoch(self, examples):
-        """Runs one epoch of training KG embedding model.
+        """Runs one epoch of training KG embedding model.运行训练模型
 
         Args:
             examples: torch.LongTensor of shape (N_train x 3) with training triples

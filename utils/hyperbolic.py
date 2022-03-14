@@ -34,8 +34,8 @@ def tanh(x):
 # ################# HYP OPS ########################
 
 def expmap0(u, c):
-    """Exponential map taken at the origin of the Poincare ball with curvature c.
-
+    """Exponential map taken at the origin of the Poincare ball with curvature c. 
+       庞卡莱球的指数映射 映射到切空间
     Args:
         u: torch.Tensor of size B x d with hyperbolic points
         c: torch.Tensor of size 1 or B x 1 with absolute hyperbolic curvatures
@@ -51,6 +51,7 @@ def expmap0(u, c):
 
 def logmap0(y, c):
     """Logarithmic map taken at the origin of the Poincare ball with curvature c.
+       庞卡莱球的对数映射 映射到双曲空间
 
     Args:
         y: torch.Tensor of size B x d with tangent points
@@ -66,7 +67,7 @@ def logmap0(y, c):
 
 def project(x, c):
     """Project points to Poincare ball with curvature c.
-
+       将点投影到曲率为C的庞卡莱球
     Args:
         x: torch.Tensor of size B x d with hyperbolic points
         c: torch.Tensor of size 1 or B x 1 with absolute hyperbolic curvatures
@@ -84,7 +85,7 @@ def project(x, c):
 
 def mobius_add(x, y, c):
     """Mobius addition of points in the Poincare ball with curvature c.
-
+        双曲空间中的加法
     Args:
         x: torch.Tensor of size B x d with hyperbolic points
         y: torch.Tensor of size B x d with hyperbolic points
@@ -105,7 +106,7 @@ def mobius_add(x, y, c):
 
 def hyp_distance(x, y, c, eval_mode=False):
     """Hyperbolic distance on the Poincare ball with curvature c.
-
+        双曲空间中计算距离
     Args:
         x: torch.Tensor of size B x d with hyperbolic queries
         y: torch.Tensor with hyperbolic queries, shape n_entities x d if eval_mode is true else (B x d)
@@ -133,7 +134,7 @@ def hyp_distance(x, y, c, eval_mode=False):
 
 def hyp_distance_multi_c(x, v, c, eval_mode=False):
     """Hyperbolic distance on Poincare balls with varying curvatures c.
-
+        变曲率的双曲空间中进行距离计算
     Args:
         x: torch.Tensor of size B x d with hyperbolic queries
         y: torch.Tensor with hyperbolic queries, shape n_entities x d if eval_mode is true else (B x d)

@@ -1,7 +1,7 @@
 #!/bin/bash
 cd .. 
 source set_env.sh
-python run.py \
+CUDA_VISIBLE_DEVICES=1 python run.py \
             --dataset WN18RR \
             --model RotH \
             --rank 32 \

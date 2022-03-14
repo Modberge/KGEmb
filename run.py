@@ -42,10 +42,10 @@ parser.add_argument(
     "--patience", default=10, type=int, help="Number of epochs before early stopping"
 )
 parser.add_argument(
-    "--valid", default=3, type=float, help="Number of epochs before validation"
+    "--valid", default=3, type=float, help="Number of epochs before validation"  #验证集的数量
 )
 parser.add_argument(
-    "--rank", default=1000, type=int, help="Embedding dimension"
+    "--rank", default=1000, type=int, help="Embedding dimension"  
 )
 parser.add_argument(
     "--batch_size", default=1000, type=int, help="Batch size"
@@ -63,24 +63,24 @@ parser.add_argument(
     "--learning_rate", default=1e-1, type=float, help="Learning rate"
 )
 parser.add_argument(
-    "--gamma", default=0, type=float, help="Margin for distance-based losses"
+    "--gamma", default=0, type=float, help="Margin for distance-based losses" #
 )
 parser.add_argument(
-    "--bias", default="constant", type=str, choices=["constant", "learn", "none"], help="Bias type (none for no bias)"
+    "--bias", default="constant", type=str, choices=["constant", "learn", "none"], help="Bias type (none for no bias)" #偏差类型
 )
 parser.add_argument(
-    "--dtype", default="double", type=str, choices=["single", "double"], help="Machine precision"
+    "--dtype", default="double", type=str, choices=["single", "double"], help="Machine precision" #精度
 )
 parser.add_argument(
     "--double_neg", action="store_true",
-    help="Whether to negative sample both head and tail entities"
+    help="Whether to negative sample both head and tail entities" #负采样规则
 )
 parser.add_argument(
     "--debug", action="store_true",
-    help="Only use 1000 examples for debugging"
+    help="Only use 1000 examples for debugging" #debug测试
 )
 parser.add_argument(
-    "--multi_c", action="store_true", help="Multiple curvatures per relation"
+    "--multi_c", action="store_true", help="Multiple curvatures per relation" #多重曲率设置
 )
 
 
@@ -188,4 +188,5 @@ def train(args):
 
 
 if __name__ == "__main__":
+
     train(parser.parse_args())

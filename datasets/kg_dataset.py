@@ -57,7 +57,8 @@ class KGDataset(object):
         return torch.from_numpy(examples.astype("int64"))
 
     def get_filters(self, ):
-        """Return filter dict to compute ranking metrics in the filtered setting."""
+        """Return filter dict to compute ranking metrics in the filtered setting.
+            返回filter下的排名指标"""
         return self.to_skip
 
     def get_shape(self):

@@ -29,7 +29,7 @@ def euc_sqdistance(x, y, eval_mode=False):
 
 def givens_rotations(r, x):
     """Givens rotations.
-
+    
     Args:
         r: torch.Tensor of shape (N x d), rotation parameters
         x: torch.Tensor of shape (N x d), points to rotate

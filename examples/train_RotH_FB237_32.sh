@@ -1,6 +1,6 @@
 cd .. 
 source set_env.sh
-python run.py \
+CUDA_VISIBLE_DEVICES=1 python run.py \
             --dataset FB237 \
             --model RotH \
             --rank 32 \

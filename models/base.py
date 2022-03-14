@@ -18,8 +18,8 @@ class KGModel(nn.Module, ABC):
         init_size: float for embeddings' initialization scale
         entity: torch.nn.Embedding with entity embeddings
         rel: torch.nn.Embedding with relation embeddings
-        bh: torch.nn.Embedding with head entity bias embeddings
-        bt: torch.nn.Embedding with tail entity bias embeddings
+        bh: torch.nn.Embedding with head entity bias embeddings 头实体Embedding 
+        bt: torch.nn.Embedding with tail entity bias embeddings 尾实体Embedding
     """
 
     def __init__(self, sizes, rank, dropout, gamma, data_type, bias, init_size):
@@ -74,7 +74,7 @@ class KGModel(nn.Module, ABC):
     @abstractmethod
     def similarity_score(self, lhs_e, rhs_e, eval_mode):
         """Compute similarity scores or queries against targets in embedding space.
-
+        计算相似度
         Args:
             lhs_e: torch.Tensor with queries' embeddings
             rhs_e: torch.Tensor with targets' embeddings

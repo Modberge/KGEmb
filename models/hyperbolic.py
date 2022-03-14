@@ -1,4 +1,4 @@
-"""Hyperbolic Knowledge Graph embedding models where all parameters are defined in tangent spaces."""
+"""Hyperbolic Knowledge Graph embedding models where all parameters are defined in tangent spaces. 参数定义在切线空间中"""
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -8,11 +8,12 @@ from models.base import KGModel
 from utils.euclidean import givens_rotations, givens_reflection
 from utils.hyperbolic import mobius_add, expmap0, project, hyp_distance_multi_c
 
-HYP_MODELS = ["RotH", "RefH", "AttH"]
+HYP_MODELS = ["RotH", "RefH", "AttH","RotX","RotD"]
 
 
 class BaseH(KGModel):
-    """Trainable curvature for each relationship."""
+    """Trainable curvature for each relationship.
+        每一个关系都有可训练的曲率"""
 
     def __init__(self, args):
         super(BaseH, self).__init__(args.sizes, args.rank, args.dropout, args.gamma, args.dtype, args.bias,
@@ -45,16 +46,41 @@ class RotH(BaseH):
     """Hyperbolic 2x2 Givens rotations"""
 
     def get_queries(self, queries):
-        """Compute embedding and biases of queries."""
-        c = F.softplus(self.c[queries[:, 1]])
+        """Compute embedding and biases of queries.计算query向量的嵌入和偏差"""
+        c = F.softplus(self.c[queries[:, 1]])  #训练曲率
         head = expmap0(self.entity(queries[:, 0]), c)
-        rel1, rel2 = torch.chunk(self.rel(queries[:, 1]), 2, dim=1)
+        rel1, rel2 = torch.chunk(self.rel(queries[:, 1]), 2, dim=1)  #TODO: dim or dim2?
         rel1 = expmap0(rel1, c)
         rel2 = expmap0(rel2, c)
         lhs = project(mobius_add(head, rel1, c), c)
         res1 = givens_rotations(self.rel_diag(queries[:, 1]), lhs)
         res2 = mobius_add(res1, rel2, c)
         return (res2, c), self.bh(queries[:, 0])
+
+class RotX(BaseH):
+
+    def get_queries(self, queries):
+        """Compute embedding and biases of queries.计算query向量的嵌入和偏差"""
+        c = F.softplus(self.c[queries[:, 1]])
+        head = expmap0(self.entity(queries[:, 0]), c)
+        rel1, rel2 = torch.chunk(self.rel(queries[:, 1]), 2, dim=1)
+        rel1 = expmap0(rel1, c)
+        rel2 = expmap0(rel2, c)
+        lhs = project(mobius_add(head, rel1, c), c)
+        return (lhs, c), self.bh(queries[:, 0])
+
+class RotD(BaseH):
+
+    def get_queries(self, queries):
+        """Compute embedding and biases of queries.计算query向量的嵌入和偏差"""
+        c = F.softplus(self.c[queries[:, 1]])
+        head = expmap0(self.entity(queries[:, 0]), c)
+        rel1, rel2 = torch.chunk(self.rel(queries[:, 1]), 2, dim=1)
+        rel1 = expmap0(rel1, c)
+        rel2 = expmap0(rel2, c)
+        lhs = project(mobius_add(head, rel1, c), c)
+        return (lhs, c), self.bh(queries[:, 0])
+
 
 
 class RefH(BaseH):
